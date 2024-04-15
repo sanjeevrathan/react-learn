@@ -2,17 +2,31 @@ import { useState } from "react";
 
 import Header from "./components/Header/Header.jsx";
 // import componentsImg from "./assets/components.png";
-import { CORE_CONCEPTS } from "./data.js";
+import { CORE_CONCEPTS, EXAMPLES } from "./data.js";
 import CoreConcept from "./components/CoreConcept.jsx";
 import TabButton from "./components/TabButton.jsx";
 function App() {
-  const [selectedTopic, setSelectedTopic] = useState("Please click a button");
+  const [selectedTopic, setSelectedTopic] = useState();
 
   const handleSelect = (selectedContent) => {
     //selectedContent => "component", "jsx", "props", "state"
     setSelectedTopic(selectedContent);
-    console.log(selectedTopic);
+    // console.log(selectedTopic);
   };
+
+  let tabContent = <p>please select a topic</p>;
+
+  if (selectedTopic) {
+    tabContent = (
+      <div id="tab-content">
+        <h3>{EXAMPLES[selectedTopic].title}</h3>
+        <p>{EXAMPLES[selectedTopic].description}</p>
+        <pre>
+          <code>{EXAMPLES[selectedTopic].code}</code>
+        </pre>
+      </div>
+    );
+  }
   return (
     <div>
       <Header />
@@ -54,11 +68,22 @@ function App() {
               components
             </TabButton>
             {/* <TabButton label="JSX" /> */}
-            <TabButton onSelect={() => handleSelect("JSX")}>JSX</TabButton>
+            <TabButton onSelect={() => handleSelect("jsx")}>JSX</TabButton>
             <TabButton onSelect={() => handleSelect("props")}>props</TabButton>
             <TabButton onSelect={() => handleSelect("state")}>state</TabButton>
           </menu>
-          {selectedTopic}
+          {/* {!selectedTopic ? <p>please select a topic</p> : null} an alternative approach for this is given below*/}
+          {/* {!selectedTopic && <p>please select a topic</p>} */}
+          {/* {selectedTopic && (
+            // <div id="tab-content">
+            //   <h3>{EXAMPLES[selectedTopic].title}</h3>
+            //   <p>{EXAMPLES[selectedTopic].description}</p>
+            //   <pre>
+            //     <code>{EXAMPLES[selectedTopic].code}</code>
+            //   </pre>
+            // </div>
+          )} */}
+          {tabContent}
         </section>
       </main>
     </div>
