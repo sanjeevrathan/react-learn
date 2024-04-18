@@ -35,7 +35,10 @@ function App() {
         <section id="core-concepts">
           <h2>Core Concepts</h2>
           <ul>
-            <CoreConcept {...CORE_CONCEPTS[0]} />
+            {CORE_CONCEPTS.map((coreConcept) => (
+              <CoreConcept {...coreConcept} />
+            ))}
+            {/* <CoreConcept {...CORE_CONCEPTS[0]} />
             <CoreConcept {...CORE_CONCEPTS[1]} />
             <CoreConcept {...CORE_CONCEPTS[2]} />
             <CoreConcept {...CORE_CONCEPTS[3]} />
@@ -64,13 +67,31 @@ function App() {
         <section id="examples">
           <h2>Examples</h2>
           <menu>
-            <TabButton onSelect={() => handleSelect("components")}>
+            <TabButton
+              isSelected={selectedTopic === "components"}
+              onSelect={() => handleSelect("components")}
+            >
               components
             </TabButton>
             {/* <TabButton label="JSX" /> */}
-            <TabButton onSelect={() => handleSelect("jsx")}>JSX</TabButton>
-            <TabButton onSelect={() => handleSelect("props")}>props</TabButton>
-            <TabButton onSelect={() => handleSelect("state")}>state</TabButton>
+            <TabButton
+              onSelect={() => handleSelect("jsx")}
+              isSelected={selectedTopic === "jsx"}
+            >
+              JSX
+            </TabButton>
+            <TabButton
+              onSelect={() => handleSelect("props")}
+              isSelected={selectedTopic === "props"}
+            >
+              props
+            </TabButton>
+            <TabButton
+              onSelect={() => handleSelect("state")}
+              isSelected={selectedTopic === "state"}
+            >
+              state
+            </TabButton>
           </menu>
           {/* {!selectedTopic ? <p>please select a topic</p> : null} an alternative approach for this is given below*/}
           {/* {!selectedTopic && <p>please select a topic</p>} */}
